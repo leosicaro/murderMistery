@@ -1,0 +1,56 @@
+-- hemos abierto todas las tablas para ver que tipo de columna lleva cada una
+-- con el texto hemos obtenido las pistas de la fecha 20180115 ciudad SQL City (ojo las mayusculas)
+-- y el tipo de crime MURDER
+
+--SELECT * FROM crime_scene_report WHERE type = 'murder' AND date = '20180115' AND  city = 'SQL City'
+  --esto dio lugar a encontrar dos testigos uno de ellos una direccion y el otro de ellos con su nombre de Annabel Y una calle
+  --"Franklin Ave","Northwestern Dr"
+  
+  --SELECT id,name ,address_street_name, MAX(address_number) FROM person WHERE address_street_name = "Northwestern Dr";
+  -- Con esto encontramos a MORTY SCHAPIRO id 14887 
+  
+  --SELECT id,name,address_street_name FROM person WHERE name LIKE '%Annabel%' AND address_street_name= 'Franklin Ave'
+  -- aqui filtramos las 4 annabels
+  
+  --SELECT * FROM interview WHERE person_id IN (14887,16371)
+  --con esto hemos obtenido pistas claves como que el asesino estaba registrado en el gym 
+  -- membership 48Z , Gold ,placa H42W ,y estuvo en el gym el 20180109
+  
+  --SELECT * FROM get_fit_now_member WHERE membership_status = 'gold' AND id LIKE '48Z%'
+  
+  -- hemos filtrado a jeremy Bowers 67318 y joe germuska 28819
+  --SELECT * FROM drivers_license WHERE plate_number LIKE '%H42W%' AND gender = 'male'
+  
+ -- SELECT * FROM get_fit_now_check_in WHERE check_in_date = '20180109' AND membership_id LIKE '48Z%'
+ 
+ --SELECT * FROM get_fit_now_member 
+ --JOIN get_fit_now_check_in ON get_fit_now_member.id = membership_id 
+ --JOIN person ON person.id = get_fit_now_member.person_id
+ --JOIN drivers_license ON drivers_license.id = person.license_id
+ --con todas las tablas fusionadas vamos a filtrar datos por pistas
+ --WHERE get_fit_now_check_in.check_in_date ='20180109'
+ --AND get_fit_now_member.membership_status = 'gold'
+ --AND get_fit_now_member.id LIKE '48Z%'
+ --AND drivers_license.plate_number LIKE '%H42W%'
+ --AND drivers_license.gender = 'male'
+ --hemos obtenido al asesino¡¡¡¡ASESINO CABRON¡¡ ahhhh NO QUE ERA BROMA , que este es un mandado
+ 
+ --SELECT * FROM interview WHERE  person_id = 67318
+ -- fue contratado por una mujer de 5.5 (65") 5'7" (67") red hair ,tesla model s concierto de 
+ --SQL Symphony  201712%
+ 
+ --SELECT * FROM drivers_license 
+ --WHERE hair_color = 'red' 
+ --AND car_make = 'Tesla'
+ 
+-- SELECT * FROM facebook_event_checkin WHERE  event_name='SQL Symphony Concert' AND date LIKE '201712%'
+ 
+ SELECT * FROM person
+ join drivers_license on drivers_license.id = person.license_id
+ JOIN facebook_event_checkin on facebook_event_checkin.person_id = person.id
+ where drivers_license.gender = 'female'
+ AND drivers_license.car_make = 'Tesla'
+ and drivers_license.hair_color = 'red'
+  --SE DESCUBRE LA VERDADERA VILLANA
+  
+  
